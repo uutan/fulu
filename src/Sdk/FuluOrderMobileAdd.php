@@ -12,32 +12,20 @@ namespace uutan\Fulu\Sdk;
 class FuluOrderMobileAdd extends BaseSdk
 {
 
-    const ENDPOINT_URL = 'https://openapi.fulu.com/api/getway';
-
-    const ENDPOINT_VERSION = '2.0';
-
-    const ENDPOINT_FORMAT = 'json';
-
-    const ENDPOINT_CHARSET = 'utf-8';
-
-    const ENDPOINT_SIGN_TYPE = 'md5';
-
     const ENDPOINT_METHOD = 'fulu.order.mobile.add';
-
-    const SUCCESS_CODE = 0;
 
 
     public function send(array $content)
     {
         $params = [
-            'app_key' => $this->config['app_key'],
-            'method' => self::ENDPOINT_METHOD,
+            'app_key' => $this->config->get('app_key'),
+            'method' => $this->config->get('method',self::ENDPOINT_METHOD),
             'timestamp' => date('Y-m-d H:i:s'),
-            'version' => self::ENDPOINT_VERSION,
-            'format' => self::ENDPOINT_FORMAT,
-            'sign_type' => self::ENDPOINT_SIGN_TYPE,
-            'charset' => self::ENDPOINT_CHARSET,
-            'app_auth_token' => '',
+            'version' => $this->config->get('version',self::ENDPOINT_VERSION),
+            'format' => $this->config->get('format',self::ENDPOINT_FORMAT),
+            'sign_type' => $this->config->get('sign_type',self::ENDPOINT_SIGN_TYPE),
+            'charset' => $this->config->get('charset',self::ENDPOINT_CHARSET),
+            'app_auth_token' => $this->config->get('app_auth_token',self::ENDPOINT_APP_AUTH_TOKEN),
             'biz_content' => json_encode($content)
         ];
 

@@ -3,6 +3,8 @@
 namespace uutan\Fulu;
 
 use Closure;
+use uutan\Fulu\Contracts\FuLuInterface;
+use uutan\Fulu\Exceptions\InvalidArgumentException;
 
 class FuLuFactory
 {
@@ -11,8 +13,15 @@ class FuLuFactory
 
     static public function factory($method, array $config)
     {
+        $config['method'] = $method;
+
         // 根据方法获取
         $className = self::formatMethodClassName($method);
+
+        if (!\class_exists($className) || !\in_array(FuLuInterface::class, \class_implements($className))) {
+            throw new InvalidArgumentException(\sprintf('Class "%s" is a invalid fulu sdk.', $className));
+        }
+
         return new $className($config);
     }
 
@@ -30,11 +39,6 @@ class FuLuFactory
         $name = ucfirst($name);
         return __NAMESPACE__."\\Sdk\\$name";
     }
-
-
-
-
-
 
 
 }
