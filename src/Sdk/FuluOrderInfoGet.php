@@ -12,8 +12,6 @@ namespace uutan\Fulu\Sdk;
 class FuluOrderInfoGet extends BaseSdk
 {
 
-    const ENDPOINT_METHOD = 'fulu.order.info.get';
-
     public function send(array $content)
     {
         $params = $this->getPublicParams($content);
